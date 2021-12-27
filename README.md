@@ -1,4 +1,4 @@
-# Shortcut-Resditribution
+# CoDeCap
 Promoting Coherence and Diversity in Image Captioning 
 
 TODO:
