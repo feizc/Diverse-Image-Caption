@@ -1,6 +1,10 @@
-# CoDeCap
-Promoting Coherence and Diversity in Image Captioning 
+# Div-Cap
+
+Promoting Coherence and Diversity in Image Captioning
 
 TODO:
-1. Faster RCNN image features (2048-dim) and image pathch embedding 
-2. parallized training 
+
+1. diversity metric evaluation script
+2. diversity beam search
+3. vae Transformer
+4. shortcut distribution
