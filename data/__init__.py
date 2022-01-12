@@ -1,5 +1,5 @@
-from .field import RawField, ImageDetectionsField, TextField 
-from .dataset import COCO  
+from .field import RawField, ImageDetectionsField, TextField, ImagePatchField, CLIPTextField
+from .dataset import COCO, RawCOCO
 from torch.utils.data import DataLoader as TorchDataLoader
 
 class DataLoader(TorchDataLoader):

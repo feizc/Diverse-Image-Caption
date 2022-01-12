@@ -1,12 +1,18 @@
 import os 
-import collections 
+import collections
+from sys import prefix 
 import torch 
 import numpy as np 
 import itertools
-
+from torch._C import device
+from torch.utils.data import Dataset
+import json 
+from PIL import Image 
+import clip
 from data import field 
 from .utils import nostdout 
 from pycocotools.coco import COCO as pyCOCO
+from typing import Tuple, Optional, Union 
 
 class Dataset(object):
     def __init__(self, examples, fields):
@@ -311,4 +317,52 @@ class COCO(PairedDataset):
                     test_samples.append(example)
 
         return train_samples, val_samples, test_samples
+
+
+
+class RawCOCO(Dataset): 
+
+    def __init__(self, annotation_path, image_path, clip_model, preprocess, tokenizer, device, prefix_length=5):
+        self.tokenizer = tokenizer 
+        self.prefix_length = prefix_length 
+        with open(annotation_path, 'r') as f: 
+            data_dict = json.load(f) 
+        self.data = data_dict['annotations'] 
+        self.clip_model = clip_model
+        self.preprocess = preprocess
+        self.max_seq_len = 30 
+        self.device = device 
+        self.image_path = image_path
+    
+    def __getitem__(self, index)-> Tuple[torch.Tensor, ...]:
+        d = self.data[index] 
+        img_id = d['image_id']
+        filename = os.path.join(self.image_path, f"train2014/COCO_train2014_{int(img_id):012d}.jpg")
+        if not os.path.isfile(filename):
+            filename = os.path.join(self.image_path, f"val2014/COCO_val2014_{int(img_id):012d}.jpg") 
+        image = self.preprocess(Image.open(filename)).unsqueeze(0).to(self.device) 
+        caption =  clip.tokenize([d['caption']]).to(self.device)
+        with torch.no_grad():
+            image_features = self.clip_model.encode_image(image).float().squeeze(0)
+            text_features = self.clip_model.encode_text(caption).float().squeeze(0)
+        tokens, mask = self.pad_tokens(index) 
+        
+        return image_features, text_features, tokens, mask
+        
+    def __len__(self):
+        return len(self.data) 
+    
+    def pad_tokens(self, item):
+        tokens = torch.tensor(self.tokenizer.encode(self.data[item]['caption']), dtype=torch.int64)
+        padding = self.max_seq_len - tokens.shape[0]
+        if padding > 0:
+            tokens = torch.cat((tokens, torch.zeros(padding, dtype=torch.int64) - 1))
+        elif padding < 0:
+            tokens = tokens[:self.max_seq_len]
+        mask = tokens.ge(0)  # mask is zero where we out of sequence
+        tokens[~mask] = 0
+        mask = mask.float()
+        # mask = torch.cat((torch.ones(self.prefix_length), mask), dim=0)  # adding prefix mask
+        return tokens, mask 
+    
 

@@ -72,6 +72,7 @@ def train(model, dataloader, optim, scheduler):
             running_loss += this_loss
             pbar.set_postfix(loss=running_loss / (it + 1))
             pbar.update() 
+            break 
             
     loss = running_loss / len(dataloader)
     return loss
@@ -133,6 +134,7 @@ def evaluate_metrics(model, dataloader, tokenizer):
             gts[it] = [tokenizer.decode(tokens[0].tolist())]
             gen[it] = [tokenizer.decode(gen_s)]  
             pbar.update()
+            break
 
     scores, _ = evaluation.compute_scores(gts, gen) 
     print(scores)
