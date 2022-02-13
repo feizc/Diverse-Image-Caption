@@ -157,6 +157,7 @@ if __name__ == '__main__':
 
     print(args)
 
+    # load clip and image preprocess operation 
     clip_model, img_trans = clip.load("ViT-B/32", device=device) 
     tokenizer = GPT2Tokenizer.from_pretrained(args.gpt_path)
     
