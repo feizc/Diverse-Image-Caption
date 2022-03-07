@@ -17,5 +17,5 @@ the zip file containing the annotations ([annotations_trainval2014.zip](http://i
 
 
 ## Acknowledgment
-This repository refers to [github](https://github.com/aimagelab/meshed-memory-transformer). 
+This repository refers to [github](https://github.com/aimagelab/meshed-memory-transformer) and [huggingface](https://github.com/huggingface/transformers). 
 Thanks for the released  code.
