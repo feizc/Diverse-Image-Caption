@@ -6,7 +6,7 @@ This repository includes the reference code for conventional diverse image capti
 
 ## Environment setup 
 
-- Python 3.8, 
+- Python 3.8
 - Pytorch 1.9
 - transformers 4.12 
 
