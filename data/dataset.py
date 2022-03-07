@@ -1,10 +1,8 @@
 import os 
 import collections
-from sys import prefix 
 import torch 
 import numpy as np 
 import itertools
-from torch._C import device
 from torch.utils.data import Dataset
 import json 
 from PIL import Image 
@@ -13,6 +11,7 @@ from data import field
 from .utils import nostdout 
 from pycocotools.coco import COCO as pyCOCO
 from typing import Tuple, Optional, Union 
+
 
 class Dataset(object):
     def __init__(self, examples, fields):
@@ -320,7 +319,7 @@ class COCO(PairedDataset):
 
 
 
-class RawCOCO(Dataset): 
+class ClipCOCO(Dataset): 
 
     def __init__(self, annotation_path, image_path, clip_model, preprocess, tokenizer, device, prefix_length=5):
         self.tokenizer = tokenizer 
