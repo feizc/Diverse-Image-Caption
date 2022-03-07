@@ -27,9 +27,9 @@ import warnings
 warnings.filterwarnings("ignore")
 
 
-random.seed(2021)
-torch.manual_seed(2021)
-np.random.seed(2021)
+random.seed(2022)
+torch.manual_seed(2022)
+np.random.seed(2022)
 
 
 # fusion = {concate, memory, graft}
@@ -77,7 +77,7 @@ def train(model, dataloader, optim, scheduler):
             running_loss += this_loss
             pbar.set_postfix(loss=running_loss / (it + 1))
             pbar.update() 
-            break 
+            
             
     loss = running_loss / len(dataloader)
     return loss
@@ -150,7 +150,6 @@ def evaluate_metrics(model, dataloader, tokenizer):
             gts[it] = [tokenizer.decode(tokens[0].tolist())]
             gen[it] = [tokenizer.decode(gen_s)]  
             pbar.update()
-            break
 
     scores, _ = evaluation.compute_scores(gts, gen) 
     print(scores)
@@ -184,7 +183,13 @@ if __name__ == '__main__':
     train_dataloader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False, drop_last=True)
     eval_dataloader = DataLoader(dataset, batch_size=1, shuffle=False, drop_last=True)
     
-    model = OG_CVAE(configuration).to(device) 
+    if fusion_strategy == 'graft':
+        model = OG_CVAE(configuration).to(device) 
+    elif fusion_strategy == 'concate': 
+        model = Clip_CVAE().to(device)
+    else:
+        model = MA_CVAE().to(device)
+        
     optimizer = AdamW(model.parameters(), lr=2e-5) 
     scheduler = get_linear_schedule_with_warmup(
         optimizer, num_warmup_steps=5000, num_training_steps=args.epochs * len(train_dataloader)
