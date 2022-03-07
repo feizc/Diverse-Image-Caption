@@ -2,7 +2,7 @@
 
 Promoting Coherence and Diversity in Image Captioning
 
-This repository includes the reference code for conventional diverse image captioning model and CLIP-CVAE.  
+This repository includes the reference code for conventional diverse image captioning models and CLIP-CVAE.  
 
 ## Environment setup 
 
