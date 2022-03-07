@@ -161,7 +161,7 @@ def evaluate_metrics(model, dataloader, tokenizer):
 if __name__ == '__main__': 
     use_device = torch.cuda.is_available()
     device = torch.device('cuda:0' if use_device else 'cpu') 
-    parser = argparse.ArgumentParser(description='Transformer Image Captioning')
+    parser = argparse.ArgumentParser(description='Clip-CVAE')
     parser.add_argument('--features_path', type=str, default='COCO/features/coco_detections.hdf5')
     parser.add_argument('--annotation_folder', type=str, default='COCO/annotations/captions_train2014.json') 
     parser.add_argument('--image_path', type=str, default='/Users/feizhengcong/Desktop/COCO')
