@@ -13,9 +13,9 @@ import json
 import warnings
 warnings.filterwarnings("ignore")
 
-random.seed(2021)
-torch.manual_seed(2021)
-np.random.seed(2021)
+random.seed(2022)
+torch.manual_seed(2022)
+np.random.seed(2022)
 
 
 def predict_captions(model, dataloader, text_field):
@@ -80,4 +80,5 @@ if __name__ == '__main__':
     dict_dataloader_test = DataLoader(dict_dataset_test, batch_size=args.batch_size, num_workers=args.workers)
 
     scores = predict_captions(model, dict_dataloader_test, text_field)
-    print(scores)
+    print(scores) 
+    

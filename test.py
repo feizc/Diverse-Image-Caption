@@ -24,4 +24,13 @@ print(vocab_dict)
 text = clip.tokenize(["a diagram", "a dog", "a cat"])
 print(text) 
 
+import torch
+import clip
+from PIL import Image
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+model, preprocess = clip.load("ViT-B/32", device=device)
+text_features = model.encode_text(text) 
+print(text_features.size())
+
 

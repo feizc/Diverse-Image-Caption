@@ -1,3 +1,6 @@
+# This script is train for the Transformer baseline 
+# refer from: https://github.com/aimagelab/meshed-memory-transformer 
+
 import random 
 import torch
 from torch.nn.functional import batch_norm 
@@ -19,13 +22,14 @@ from data import DataLoader, COCO
 from model import Transformer, VisualEncoder, CaptionDecoder, ScaledDotProductAttention
 import evaluation 
 from evaluation import PTBTokenizer, Cider
+
 import warnings
 warnings.filterwarnings("ignore")
 
 
-random.seed(2021)
-torch.manual_seed(2021)
-np.random.seed(2021)
+random.seed(2022)
+torch.manual_seed(2022)
+np.random.seed(2022)
 
 
 def train_xe(model, dataloader, optim, text_field):
@@ -162,7 +166,7 @@ if __name__ == '__main__':
         text_field.vocab = pickle.load(open('vocab_%s.pkl' % args.exp_name, 'rb')) 
     
     # print(text_field.vocab.freqs) 
-    # Model 
+    # Model Load
     encoder = VisualEncoder(3, 0, attention_module=ScaledDotProductAttention) 
     decoder = CaptionDecoder(len(text_field.vocab), 54, 3, text_field.vocab.stoi['<pad>']) 
     model = Transformer(text_field.vocab.stoi['<bos>'], encoder, decoder).to(device) 
@@ -247,9 +251,3 @@ if __name__ == '__main__':
         if exit_train: 
             break 
         
-
-
-
-
-
-

@@ -1,3 +1,4 @@
+# extract image features with faster-rcnn
 import torch 
 import torchvision
 import os 
@@ -60,10 +61,17 @@ def image_feature_extract(image_data_path, feature_saved_path):
 
         for box in boxes[:5]: 
             box = box.tolist() 
-            x1 = max(int(box[0]), 0) 
-            y1 = max(int(box[1]), 0)
-            x2 = min(int(box[2]), width)
-            y2 = min(int(box[3]), height)
+            x11 = min(box[0], box[2])
+            x22 = max(box[0], box[2]) 
+            y11 = min(box[1], box[3]) 
+            y22 = max(box[1], box[3]) 
+
+            x1 = max(int(x11), 0) 
+            y1 = max(int(y11), 0)
+            x2 = min(int(x22), width)
+            y2 = min(int(y22), height)
+            if x1 == x2 or y1 == y2: 
+                continue 
             image_crop = image_PIL.crop(tuple([x1, y1, x2, y2])) 
             # image_crop.show()
             image_crop = crop_transform(image_crop).to(device) 
@@ -79,6 +87,6 @@ def image_feature_extract(image_data_path, feature_saved_path):
 
 
 if __name__ == '__main__': 
-    train_image_path = 'dataset/images/train2014'  
-    feature_saved_path = 'dataset/features'
+    train_image_path = '/Users/feizhengcong/Desktop/COCO/images/train2014'  
+    feature_saved_path = 'COCO/features'
     image_feature_extract(train_image_path, feature_saved_path)
