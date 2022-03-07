@@ -50,8 +50,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Transformer')
     parser.add_argument('--batch_size', type=int, default=10)
     parser.add_argument('--workers', type=int, default=0)
-    parser.add_argument('--features_path', type=str, default='/Users/feizhengcong/Desktop/COCO/features/coco_detections.hdf5')
-    parser.add_argument('--annotation_folder', type=str, default='/Users/feizhengcong/Desktop/COCO/annotations')
+    parser.add_argument('--features_path', type=str, default='COCO/features/coco_detections.hdf5')
+    parser.add_argument('--annotation_folder', type=str, default='COCO/annotations')
     args = parser.parse_args()
 
     print('Transformer Evaluation')
