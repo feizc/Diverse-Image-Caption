@@ -162,7 +162,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Clip-CVAE')
     parser.add_argument('--features_path', type=str, default='COCO/features/coco_detections.hdf5')
     parser.add_argument('--annotation_folder', type=str, default='COCO/annotations/captions_train2014.json') 
-    parser.add_argument('--image_path', type=str, default='/Users/feizhengcong/Desktop/COCO')
+    parser.add_argument('--image_path', type=str, default='COCO')
     parser.add_argument('--gpt_path', type=str, default='ckpt/gpt2')
     parser.add_argument('--workers', type=int, default=0) 
     parser.add_argument('--batch_size', type=int, default=5)
