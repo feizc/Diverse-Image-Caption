@@ -4,7 +4,7 @@ import json
 import pickle 
 import clip 
 
-annotation_path = '/Users/feizhengcong/Desktop/COCO/annotations/captions_train2014.json' 
+annotation_path = 'COCO/annotations/captions_train2014.json' 
 with open(annotation_path, 'r', encoding='utf-8') as f: 
     data_dict = json.load(f)['annotations']
 
