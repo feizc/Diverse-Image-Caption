@@ -20,13 +20,14 @@ Run `python train_CVAE.py` using the following arguments:
 
 | Argument | Possible values |
 |------|------|
-| `--exp_name` | Experiment name (default: `ClipCVAE`) |
-| `--batch_size` | Batch size (default: `25`) |
-| `--workers` | Number of workers (default: `0`) |
-| `--annotation_folder` | Path to folder with COCO annotations (required) |
-| `--image_folder` | Path to folder with COCO images (required) |
-| `--warmup` | Warmup value for learning rate scheduling (default: `10000`) |
-| `--gpt_path` | Path to folder with GPT2 model (required) |
+| `--exp_name` | Experiment name (default: `ClipCVAE`) | 
+| `--batch_size` | Batch size (default: `25`) | 
+| `--workers` | Number of workers (default: `0`) | 
+| `--annotation_folder` | Path to folder with COCO annotations (required) | 
+| `--image_folder` | Path to folder with COCO images (required) | 
+| `--warmup` | Warmup value for learning rate scheduling (default: `10000`) | 
+| `--gpt_path` | Path to folder with GPT2 model (required) | 
+
 
 
 
