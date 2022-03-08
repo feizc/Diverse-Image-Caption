@@ -166,7 +166,7 @@ if __name__ == '__main__':
     parser.add_argument('--gpt_path', type=str, default='ckpt/gpt2')
     parser.add_argument('--workers', type=int, default=0) 
     parser.add_argument('--batch_size', type=int, default=5)
-    parser.add_argument('--exp_name', type=str, default='ClipVAE')
+    parser.add_argument('--exp_name', type=str, default='ClipCVAE')
     parser.add_argument('--epochs', type=int, default=10)
     args = parser.parse_args()
 
