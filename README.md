@@ -16,7 +16,8 @@ Please download the zip files including the images ([train2014.zip](http://image
 the zip file containing the annotations ([annotations_trainval2014.zip](http://images.cocodataset.org/annotations/annotations_trainval2014.zip)) and extract them. These paths will be set as arguments later. 
 
 ## Training 
-Run `python train_CVAE.py` using the following arguments:
+Run `python train_CVAE.py` using the following arguments: 
+
 | Argument | Possible values |
 |------|------|
 | `--exp_name` | Experiment name (default: `ClipCVAE`) |
