@@ -57,6 +57,27 @@ def compute_loss(model, image_features, text_features, captions, mask, beta=1.0)
     return loss, ce_loss, kl_loss 
 
 
+def compute_loss_with_threshold(model, image_features, text_features, captions, mask, epoch, epochs):
+    outputs = model(captions, image_features, text_features,) 
+    if fusion_strategy == 'concate':
+        logits = outputs[0].logits[:,  4: -1]
+    elif fusion_strategy == 'graft': 
+        logits = outputs[0][:, 4:-1]
+    kl_loss = outputs[-1] 
+    num_logits = logits.size(-1) 
+
+    if mask is not None: 
+        mask = mask.type(torch.bool) 
+        mask = mask.to(device) 
+        logits = logits.masked_select(mask.unsqueeze(-1)) 
+        target_tokens = captions.masked_select(mask) 
+    
+    ce_loss = nnf.cross_entropy(logits.view(-1, num_logits), target_tokens.view(-1), ignore_index=0) 
+    kl_loss = kl_loss.mean()
+    loss = ce_loss.mean() + max(torch.Tensor((epochs - epoch)/epochs).float().to(device), kl_loss) 
+    return loss, ce_loss, kl_loss 
+
+
 
 def train(model, dataloader, optim, scheduler): 
     model.train()
