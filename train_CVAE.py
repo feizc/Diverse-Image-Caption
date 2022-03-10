@@ -33,7 +33,7 @@ np.random.seed(2022)
 
 
 # fusion = {concate, memory, graft}
-fusion_strategy = 'graft'
+fusion_strategy = 'concate'
 
 
 def compute_loss(model, image_features, text_features, captions, mask, beta=1.0):
