@@ -135,7 +135,8 @@ def generate_sample(model, tokenizer, prefix_emb, top_p=0.8, temperature=1.0):
             next_token = torch.argmax(logits, -1).unsqueeze(0) 
             if fusion_strategy == 'concate':
                 next_token_embed = model.gpt.transformer.wte(next_token) 
-            elif fusion_strategy == 'graft': 
+            else: 
+                # decoder embeddding is kept untouched  
                 next_token_embed = model.gpt.wte(next_token) 
 
             if tokens is None:
